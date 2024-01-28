@@ -1,35 +1,40 @@
 package com.example.mcd_online.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.mcd_online.Entity.Entite;
 import com.example.mcd_online.Service.EntityService;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.example.mcd_online.Repository.*;
 
 @RestController
 public class EntityController {
-    @Autowired 
- private EntiteRepository repository;
-    @GetMapping("/")
-    public String getSpecificEntity(){
-        ObjectMapper obj=new ObjectMapper();
-        
-        /* entity.setName("teste");
-        entity.setDescription("teste");
-        this.repository.save(entity);
-        Entite entite=this.repository.findById(entity.getId()); */
-        EntityService service=new EntityService();
-        Entite entite=service.getEntity(service.insertEntite());
-        try{
+
+    @Autowired
+    EntityService service;
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping(value = "/insertEntity", consumes = "application/json", produces = "application/json")
+    public String getSpecificEntity(@RequestBody String eq) {
+        ObjectMapper obj = new ObjectMapper();
+        String entity_name = new String();
+        String mcd_uid = new String();
+        Integer id_entity = null;
+        try {
+            JsonNode json_node = obj.readTree(eq);
+            entity_name = json_node.get("entity").asText();
+            mcd_uid = json_node.get("mcd").asText();
+            id_entity = service.insertEntite(entity_name, mcd_uid);
+            Entite entite = this.service.getEntity(id_entity);
             return obj.writeValueAsString(entite);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return "Error";
+            return ("error");
         }
-        
+
     }
-    
+
 }
