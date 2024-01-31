@@ -15,23 +15,19 @@ public class AttributService {
     private EntityManagerFactory emf;
     private EntityManager em;
 
-    public AttributService(){
-        this.emf=Persistence.createEntityManagerFactory("H2DB");
-        this.em=emf.createEntityManager();
+    public AttributService() {
+        this.emf = Persistence.createEntityManagerFactory("H2DB");
+        this.em = emf.createEntityManager();
     }
 
-    public void storeAttribut(String name,String type,Integer id_entite){
-        Attribut attribut=new Attribut();
+    public Attribut storeAttribut(String name, String type, String id_entite) {
+        Attribut attribut = new Attribut();
         attribut.setName(name);
         attribut.setType(type);
-        attribut.setEntite(this.em.find(Entite.class, id_entite));
+        attribut.setEntite(this.em.find(Entite.class, Integer.parseInt(id_entite)));
         this.em.getTransaction().begin();
         this.em.persist(attribut);
         this.em.getTransaction().commit();
+        return attribut;
     }
-
-    public void retreiveSpecificAttribut(){
-        
-    }
-    
 }

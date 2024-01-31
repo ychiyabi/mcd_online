@@ -1,5 +1,6 @@
 package com.example.mcd_online.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,8 +22,9 @@ public class Attribut {
 
     private String type;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "entite_id",nullable=false)
+    @JoinColumn(name = "entite_id", nullable = false)
     private Entite entite;
 
     public Integer getId() {
@@ -56,6 +58,5 @@ public class Attribut {
     public void setEntite(Entite entite) {
         this.entite = entite;
     }
-    
-    
+
 }
