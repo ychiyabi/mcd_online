@@ -1,5 +1,7 @@
 package com.example.mcd_online.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,12 +22,14 @@ public class Relation {
     private String cardinality_one;
     private String cardinality_two;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "entity_one",nullable=false)
+    @JoinColumn(name = "entity_one", nullable = false)
     private Entite entity_one;
 
+    @JsonBackReference
     @ManyToOne
-    @JoinColumn(name = "entity_two",nullable=false)
+    @JoinColumn(name = "entity_two", nullable = false)
     private Entite entity_two;
 
     public Integer getId() {
@@ -84,9 +88,4 @@ public class Relation {
         this.entity_two = entity_two;
     }
 
-
-    
-    
-
-    
 }

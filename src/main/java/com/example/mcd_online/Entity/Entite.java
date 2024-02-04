@@ -32,6 +32,7 @@ public class Entite implements Serializable {
     @OneToMany(mappedBy = "entite")
     private Set<Attribut> attributs;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "entity_one")
     private Set<Relation> relations;
 
