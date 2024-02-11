@@ -1,6 +1,7 @@
 package com.example.mcd_online.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,6 +22,8 @@ public class Relation {
     private String description;
     private String cardinality_one;
     private String cardinality_two;
+    private Integer id_entity_one;
+    private Integer id_entity_two;
 
     @JsonBackReference
     @ManyToOne
@@ -72,6 +75,7 @@ public class Relation {
         this.cardinality_two = cardinality_two;
     }
 
+    @JsonProperty("entity_one")
     public Entite getEntity_one() {
         return entity_one;
     }
@@ -80,12 +84,31 @@ public class Relation {
         this.entity_one = entity_one;
     }
 
+    @JsonProperty("entity_two")
     public Entite getEntity_two() {
         return entity_two;
     }
 
     public void setEntity_two(Entite entity_two) {
         this.entity_two = entity_two;
+    }
+
+    public Integer getIdEntityOne() {
+        this.id_entity_one = entity_one.getId();
+        return id_entity_one;
+    }
+
+    public void setIdEntityOne(Integer id_entity_one) {
+        this.id_entity_one = id_entity_one;
+    }
+
+    public Integer getIdEntityTwo() {
+        this.id_entity_two = entity_two.getId();
+        return id_entity_two;
+    }
+
+    public void setIdEntityTwo(Integer id_entity_two) {
+        this.id_entity_two = id_entity_two;
     }
 
 }
