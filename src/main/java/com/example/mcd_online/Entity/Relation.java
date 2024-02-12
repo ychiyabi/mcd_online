@@ -35,6 +35,11 @@ public class Relation {
     @JoinColumn(name = "entity_two", nullable = false)
     private Entite entity_two;
 
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "mcd", nullable = false)
+    private Mcd mcd;
+
     public Integer getId() {
         return id;
     }
@@ -109,6 +114,14 @@ public class Relation {
 
     public void setIdEntityTwo(Integer id_entity_two) {
         this.id_entity_two = id_entity_two;
+    }
+
+    public Mcd getMcd() {
+        return mcd;
+    }
+
+    public void setMcd(Mcd mcd) {
+        this.mcd = mcd;
     }
 
 }

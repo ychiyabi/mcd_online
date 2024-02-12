@@ -2,15 +2,20 @@ package com.example.mcd_online.Controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.mcd_online.Entity.Entite;
 import com.example.mcd_online.Entity.Relation;
 import com.example.mcd_online.Service.RelationService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class RelationController {
@@ -28,6 +33,7 @@ public class RelationController {
         String entity_one = null;
         String entity_two = null;
         String name = null;
+        String mcd_uid = null;
 
         try {
             JsonNode json_node = obj.readTree(eq);
@@ -36,13 +42,27 @@ public class RelationController {
             car_two = json_node.get("car_two").asText();
             entity_one = json_node.get("entity_one").asText();
             entity_two = json_node.get("entity_two").asText();
-            return service.storeRelation(name, entity_one, entity_two, car_one, car_two);
+            mcd_uid = json_node.get("mcd_uid").asText();
+            return service.storeRelation(name, entity_one, entity_two, car_one, car_two, mcd_uid);
 
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
 
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/getRelationsByMcd")
+    public String getAllRelationsByMcd(@RequestParam String mcd_uid) {
+        ObjectMapper obj = new ObjectMapper();
+        List<Relation> relations = this.service.getAllRelationsByMcd(mcd_uid);
+        try {
+            return obj.writeValueAsString(relations);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ("error");
+        }
     }
 
 }

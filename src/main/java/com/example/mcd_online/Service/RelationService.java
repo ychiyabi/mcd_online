@@ -1,10 +1,15 @@
 package com.example.mcd_online.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.stereotype.Service;
 
 import com.example.mcd_online.Entity.Entite;
+import com.example.mcd_online.Entity.Mcd;
 import com.example.mcd_online.Entity.Relation;
 import com.example.mcd_online.Repository.EntiteRepository;
+import com.example.mcd_online.Repository.McdRepository;
 import com.example.mcd_online.Repository.RelationRepository;
 
 @Service
@@ -12,14 +17,18 @@ public class RelationService {
 
     private RelationRepository relationRepo;
     private EntiteRepository entiteRepo;
+    private McdRepository mcdrepo;
 
-    public RelationService(RelationRepository relationrepo, EntiteRepository entiterepo) {
+    public RelationService(RelationRepository relationrepo, EntiteRepository entiterepo, McdRepository mcdrepo) {
         this.relationRepo = relationrepo;
         this.entiteRepo = entiterepo;
-
+        this.mcdrepo = mcdrepo;
     }
 
-    public Relation storeRelation(String name, String entity_one, String entity_two, String car_one, String car_two) {
+    public Relation storeRelation(String name, String entity_one, String entity_two, String car_one, String car_two,
+            String mcd_uid) {
+        UUID uid = UUID.fromString(mcd_uid);
+        Mcd main_mcd = this.mcdrepo.findByUuid(uid);
         Relation relation = new Relation();
         relation.setName(name);
         relation.setDescription("teste");
@@ -27,6 +36,7 @@ public class RelationService {
         relation.setEntity_two(this.getSpecificEntityById(entity_two));
         relation.setCardinality_one(car_one);
         relation.setCardinality_two(car_two);
+        relation.setMcd(main_mcd);
         relationRepo.save(relation);
         return relation;
     }
@@ -34,6 +44,12 @@ public class RelationService {
     protected Entite getSpecificEntityById(String id) {
         Entite entity = this.entiteRepo.findById(Integer.parseInt(id));
         return entity;
+    }
+
+    public List<Relation> getAllRelationsByMcd(String mcd_uid) {
+        UUID uid = UUID.fromString(mcd_uid);
+        Mcd main_mcd = this.mcdrepo.findByUuid(uid);
+        return relationRepo.findByMcd(main_mcd);
     }
 
 }

@@ -32,6 +32,10 @@ public class Mcd {
     @OneToMany(mappedBy = "mcd")
     private Set<Entite> entites;
 
+    @JsonManagedReference
+    @OneToMany(mappedBy = "mcd")
+    private Set<Relation> relations;
+
     public Integer getId() {
         return id;
     }
@@ -94,6 +98,14 @@ public class Mcd {
 
     public void setEntites(Set<Entite> entites) {
         this.entites = entites;
+    }
+
+    public Set<Relation> getRelations() {
+        return relations;
+    }
+
+    public void setRelations(Set<Relation> relations) {
+        this.relations = relations;
     }
 
 }

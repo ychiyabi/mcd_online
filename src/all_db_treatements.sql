@@ -16,3 +16,8 @@ CONSTRAINT FK_ENTITY_TWO FOREIGN KEY (entity_two) references ENTITE(id));
 CREATE TABLE ATTRIBUT (id integer GENERATED ALWAYS as IDENTITY PRIMARY KEY,
 name VARCHAR2(255),type VARCHAR2(255),entite_id integer,
 CONSTRAINT FK_ENTITY FOREIGN KEY (entite_id) REFERENCES ENTITE(id));
+
+alter table relation add mcd integer;
+
+ALTER TABLE relation
+ADD CONSTRAINT fk_relation_mcd FOREIGN KEY (mcd) REFERENCES mcd(id);
