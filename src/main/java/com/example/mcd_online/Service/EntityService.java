@@ -66,4 +66,14 @@ public class EntityService {
         }
     }
 
+    public Integer deleteEntity(String id) {
+        Integer id_entity = Integer.parseInt(id);
+        Integer ppkey = id_entity;
+        Entite entity = this.em.find(Entite.class, ppkey);
+        this.em.getTransaction().begin();
+        this.em.remove(entity);
+        this.em.getTransaction().commit();
+        return entity.getId();
+    }
+
 }

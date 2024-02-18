@@ -20,10 +20,11 @@ public class AttributService {
         this.em = emf.createEntityManager();
     }
 
-    public Attribut storeAttribut(String name, String type, String id_entite) {
+    public Attribut storeAttribut(String name, String type, boolean is_primary, String id_entite) {
         Attribut attribut = new Attribut();
         attribut.setName(name);
         attribut.setType(type);
+        attribut.setIsPrimary(is_primary);
         attribut.setEntite(this.em.find(Entite.class, Integer.parseInt(id_entite)));
         this.em.getTransaction().begin();
         this.em.persist(attribut);

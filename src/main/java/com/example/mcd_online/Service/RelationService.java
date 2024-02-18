@@ -12,17 +12,25 @@ import com.example.mcd_online.Repository.EntiteRepository;
 import com.example.mcd_online.Repository.McdRepository;
 import com.example.mcd_online.Repository.RelationRepository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
 @Service
 public class RelationService {
 
     private RelationRepository relationRepo;
     private EntiteRepository entiteRepo;
     private McdRepository mcdrepo;
+    private EntityManagerFactory emf;
+    private EntityManager em;
 
     public RelationService(RelationRepository relationrepo, EntiteRepository entiterepo, McdRepository mcdrepo) {
         this.relationRepo = relationrepo;
         this.entiteRepo = entiterepo;
         this.mcdrepo = mcdrepo;
+        this.emf = Persistence.createEntityManagerFactory("H2DB");
+        this.em = emf.createEntityManager();
     }
 
     public Relation storeRelation(String name, String entity_one, String entity_two, String car_one, String car_two,
@@ -50,6 +58,16 @@ public class RelationService {
         UUID uid = UUID.fromString(mcd_uid);
         Mcd main_mcd = this.mcdrepo.findByUuid(uid);
         return relationRepo.findByMcd(main_mcd);
+    }
+
+    public Integer deleteRelation(String id) {
+        Integer id_relation = Integer.parseInt(id);
+        Integer ppkey = id_relation;
+        Relation relation = this.em.find(Relation.class, ppkey);
+        this.em.getTransaction().begin();
+        this.em.remove(relation);
+        this.em.getTransaction().commit();
+        return relation.getId();
     }
 
 }

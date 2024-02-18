@@ -24,8 +24,9 @@ public class AttributController {
             JsonNode json_node = obj.readTree(eq);
             String name = json_node.get("name").asText();
             String type = json_node.get("type").asText();
+            boolean is_primary = json_node.get("is_primary").asBoolean();
             String entite = json_node.get("entite").asText();
-            return obj.writeValueAsString(this.service.storeAttribut(name, type, entite));
+            return obj.writeValueAsString(this.service.storeAttribut(name, type, is_primary, entite));
         } catch (Exception e) {
             e.printStackTrace();
             return "error";

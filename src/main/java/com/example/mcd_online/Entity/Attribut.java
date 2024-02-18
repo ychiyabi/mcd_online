@@ -22,10 +22,20 @@ public class Attribut {
 
     private String type;
 
+    private boolean is_primary;
+
     @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "entite_id", nullable = false)
     private Entite entite;
+
+    public boolean getIsPrimary() {
+        return this.is_primary;
+    }
+
+    public void setIsPrimary(boolean is_primary) {
+        this.is_primary = is_primary;
+    }
 
     public Integer getId() {
         return id;

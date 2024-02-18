@@ -21,3 +21,5 @@ alter table relation add mcd integer;
 
 ALTER TABLE relation
 ADD CONSTRAINT fk_relation_mcd FOREIGN KEY (mcd) REFERENCES mcd(id);
+
+ALTER TABLE ATTRIBUT ADD is_primary number;

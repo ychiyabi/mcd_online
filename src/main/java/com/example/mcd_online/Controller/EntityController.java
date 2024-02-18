@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @RestController
 public class EntityController {
 
@@ -67,6 +66,17 @@ public class EntityController {
             return ("error");
         }
     }
-    
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/deleteEntity")
+    public String deleteEntity(@RequestParam String id) {
+        try {
+            this.service.deleteEntity(id);
+            return ("success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ("eeeeerror");
+        }
+    }
 
 }

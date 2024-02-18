@@ -65,4 +65,16 @@ public class RelationController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/deleteRelation")
+    public String deleteRelation(@RequestParam String id) {
+        try {
+            this.service.deleteRelation(id);
+            return ("success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ("eeeeeerror");
+        }
+
+    }
 }
