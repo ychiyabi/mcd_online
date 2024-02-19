@@ -41,11 +41,11 @@ public class EntityController {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @GetMapping("getEntityById/{id_entity}")
-    public String getEntity(String id_entity) {
+    @GetMapping("/getEntityById")
+    public String getEntity(@RequestParam String id) {
         ObjectMapper obj = new ObjectMapper();
         try {
-            Entite entite = this.service.getEntity(Integer.parseInt(id_entity));
+            Entite entite = this.service.getEntity(Integer.parseInt(id));
             return obj.writeValueAsString(entite);
         } catch (Exception e) {
             e.printStackTrace();
