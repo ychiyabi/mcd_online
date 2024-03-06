@@ -23,3 +23,9 @@ ALTER TABLE relation
 ADD CONSTRAINT fk_relation_mcd FOREIGN KEY (mcd) REFERENCES mcd(id);
 
 ALTER TABLE ATTRIBUT ADD is_primary number;
+
+CREATE TABLE UTILISATEUR (id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,email varchar2(100),token varchar(355),date_join Timestamp,last_acces Timestamp);
+
+ALTER TABLE UTILISATEUR DROP COLUMN last_acces;
+
+ALTER TABLE utilisateur ADD last_access timestamp;

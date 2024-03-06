@@ -1,0 +1,18 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 110953940780-3n11pecrj6asod127vi2k7ip1brd1fvb.apps.googleusercontent.com
+            client-secret: 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
+          github:
+            clientId: f4cc89e76cbbdd46dbac
+            clientSecret: c35e99478cfac18a17835e5739da33fcaa4e360c
+            scope:
+              - email
+            
+  datasource:
+    url: jdbc:oracle:thin:@192.168.100.5:1522:xe
+    username: system
+    password: fsdevelopper
