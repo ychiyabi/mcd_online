@@ -1,0 +1,16 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    
+
+
+</head>
+<body>
+    <div id="token" th:data-token="${token}"></div>
+</body>
+
+<script defer>
+    var token = document.getElementById('token').getAttribute('data-token');
+    localStorage.setItem("token_mcd_online", token);
+    console.log(localStorage.getItem("token_mcd_online"))
+</script>
+</html>
