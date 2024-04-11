@@ -10,21 +10,13 @@ import com.example.mcd_online.Entity.Mcd;
 import com.example.mcd_online.Repository.EntiteRepository;
 import com.example.mcd_online.Repository.McdRepository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
 @Service
 public class EntityService {
 
-    private EntityManagerFactory emf;
-    private EntityManager em;
     private McdRepository mcdrepo;
     private EntiteRepository entiterepo;
 
     public EntityService(McdRepository mcdrepo, EntiteRepository entiterepo) {
-        this.emf = Persistence.createEntityManagerFactory("H2DB");
-        this.em = emf.createEntityManager();
         this.mcdrepo = mcdrepo;
         this.entiterepo = entiterepo;
     }
@@ -36,16 +28,14 @@ public class EntityService {
         entity.setName(name);
         entity.setDescription("teste");
         entity.setMcd(main_mcd);
-        this.em.getTransaction().begin();
-        this.em.persist(entity);
-        this.em.getTransaction().commit();
+        entiterepo.save(entity);
         return entity.getId();
     }
 
     public Entite getEntity(Integer id) {
 
         Integer ppkey = id;
-        Entite entity = this.em.find(Entite.class, ppkey);
+        Entite entity = entiterepo.findById(ppkey);
         try {
             return entity;
         } catch (Exception e) {
@@ -69,10 +59,8 @@ public class EntityService {
     public Integer deleteEntity(String id) {
         Integer id_entity = Integer.parseInt(id);
         Integer ppkey = id_entity;
-        Entite entity = this.em.find(Entite.class, ppkey);
-        this.em.getTransaction().begin();
-        this.em.remove(entity);
-        this.em.getTransaction().commit();
+        Entite entity = entiterepo.findById(ppkey);
+        entiterepo.deleteById(ppkey);
         return entity.getId();
     }
 

@@ -19,7 +19,7 @@ public class EntityController {
     @Autowired
     EntityService service;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
     @PostMapping(value = "/insertEntity", consumes = "application/json", produces = "application/json")
     public String storeEntity(@RequestBody String eq) {
         ObjectMapper obj = new ObjectMapper();
@@ -40,7 +40,7 @@ public class EntityController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
     @GetMapping("/getEntityById")
     public String getEntity(@RequestParam String id) {
         ObjectMapper obj = new ObjectMapper();
@@ -54,7 +54,7 @@ public class EntityController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
     @GetMapping("/getEntitesByMcd")
     public String getEntitesByMcd(@RequestParam String mcd_uid) {
         ObjectMapper obj = new ObjectMapper();
@@ -67,7 +67,7 @@ public class EntityController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
     @GetMapping("/deleteEntity")
     public String deleteEntity(@RequestParam String id) {
         try {

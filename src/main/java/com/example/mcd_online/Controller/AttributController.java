@@ -17,7 +17,7 @@ public class AttributController {
     @Autowired
     private AttributService service;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
     @PostMapping(value = "/insertAttribut", consumes = "application/json", produces = "application/json")
     public String store(@RequestBody String eq) {
 
@@ -44,7 +44,7 @@ public class AttributController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
     @GetMapping("/deleteAttribut")
     public String deleteRelation(@RequestParam String id) {
         try {

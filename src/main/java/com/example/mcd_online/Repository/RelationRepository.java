@@ -11,6 +11,8 @@ public interface RelationRepository extends Repository<Relation, Integer> {
 
     Relation findById(Integer id);
 
+    Relation deleteById(Integer id);
+
     List<Relation> findAll();
 
     List<Relation> findByMcd(Mcd mcd);

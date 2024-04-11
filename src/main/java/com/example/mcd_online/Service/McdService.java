@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.example.mcd_online.Entity.Mcd;
+import com.example.mcd_online.Repository.McdRepository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -15,10 +16,12 @@ import jakarta.persistence.Persistence;
 public class McdService {
     private EntityManagerFactory emf;
     private EntityManager em;
+    private McdRepository mcdRepo;
 
-    public McdService() {
+    public McdService(McdRepository mcdrepo) {
         this.emf = Persistence.createEntityManagerFactory("H2DB");
         this.em = emf.createEntityManager();
+        this.mcdRepo = mcdrepo;
 
     }
 
@@ -31,9 +34,12 @@ public class McdService {
         mcd.setDate_modified(timestamp);
         mcd.setSlug(this.generateSlugFromName(mcd.getName()));
         mcd.setUuid(this.generateUID());
-        this.em.getTransaction().begin();
-        this.em.persist(mcd);
-        this.em.getTransaction().commit();
+        mcdRepo.save(mcd);
+        /*
+         * this.em.getTransaction().begin();
+         * this.em.persist(mcd);
+         * this.em.getTransaction().commit();
+         */
 
         return mcd.getUuid();
     }

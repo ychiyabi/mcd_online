@@ -6,4 +6,6 @@ import java.util.UUID;
 
 public interface McdRepository extends Repository<Mcd, Integer> {
     Mcd findByUuid(UUID uuid);
+
+    Mcd save(Mcd mcd);
 }

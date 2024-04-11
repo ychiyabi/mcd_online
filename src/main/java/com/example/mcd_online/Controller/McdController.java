@@ -3,6 +3,10 @@ package com.example.mcd_online.Controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
+import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,9 +21,11 @@ public class McdController {
     @Autowired
     McdService service;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
     @PostMapping(value = "/generateMcd", consumes = "application/json", produces = "application/json")
-    public UUID generateMCD(@RequestBody String eq) {
+    public UUID generateMCD(@RequestBody String eq,
+            @RegisteredOAuth2AuthorizedClient("google") OAuth2AuthorizedClient client,
+            @AuthenticationPrincipal OAuth2User user) {
         String mcd_name = new String();
         ObjectMapper object_mapper = new ObjectMapper();
         try {

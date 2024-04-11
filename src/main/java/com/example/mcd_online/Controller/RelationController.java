@@ -23,7 +23,7 @@ public class RelationController {
     @Autowired
     private RelationService service;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
     @PostMapping(value = "/insertRelation", consumes = "application/json", produces = "application/json")
     public Relation storeRelation(@RequestBody String eq) {
 
@@ -52,7 +52,7 @@ public class RelationController {
 
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
     @GetMapping("/getRelationsByMcd")
     public String getAllRelationsByMcd(@RequestParam String mcd_uid) {
         ObjectMapper obj = new ObjectMapper();
@@ -65,7 +65,7 @@ public class RelationController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    @CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true", allowedHeaders = "*")
     @GetMapping("/deleteRelation")
     public String deleteRelation(@RequestParam String id) {
         try {

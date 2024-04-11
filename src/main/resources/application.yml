@@ -11,7 +11,10 @@ spring:
             clientSecret: c35e99478cfac18a17835e5739da33fcaa4e360c
             scope:
               - email
-            
+
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true   
   datasource:
     url: jdbc:oracle:thin:@192.168.100.5:1522:xe
     username: system
