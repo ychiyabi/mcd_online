@@ -8,19 +8,11 @@ import org.springframework.stereotype.Service;
 import com.example.mcd_online.Entity.Mcd;
 import com.example.mcd_online.Repository.McdRepository;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-
 @Service
 public class McdService {
-    private EntityManagerFactory emf;
-    private EntityManager em;
     private McdRepository mcdRepo;
 
     public McdService(McdRepository mcdrepo) {
-        this.emf = Persistence.createEntityManagerFactory("H2DB");
-        this.em = emf.createEntityManager();
         this.mcdRepo = mcdrepo;
 
     }
