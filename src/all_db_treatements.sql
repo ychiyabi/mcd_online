@@ -29,3 +29,5 @@ CREATE TABLE UTILISATEUR (id integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,em
 ALTER TABLE UTILISATEUR DROP COLUMN last_acces;
 
 ALTER TABLE utilisateur ADD last_access timestamp;
+
+ALTER TABLE mcd ADD utilisateur integer;

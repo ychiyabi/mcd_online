@@ -5,12 +5,15 @@ import java.sql.Timestamp;
 import java.util.Set;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -35,6 +38,19 @@ public class Mcd {
     @JsonManagedReference
     @OneToMany(mappedBy = "mcd")
     private Set<Relation> relations;
+
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "utilisateur", nullable = false)
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Integer getId() {
         return id;
